@@ -107,7 +107,10 @@ var KTKanbanBoardDemo = function () {
             var target = $('#kanban-select-task').val();
             var title = $('#kanban-add-task').val();
             var taskColor = "info";
-
+            if (target.length <= 0) {
+                toastr.error('Lutfen Tur Secin');
+                return;
+            }
             $.ajax({
                 dataType: 'JSON',
                 type: 'Get',
