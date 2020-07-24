@@ -5,12 +5,12 @@ namespace Business.Abstract
 {
     public interface IUserCalenderService
     {
-        Result UserEvents();
+        Result UserEvents(int? userId=null);
 
-        Result CreateEvent(PostUserCalenderModel model);
+        Result CreateEvent(PostUserCalenderModel model, int? userId = null);
 
-        Result UpdateEvent(PostUserCalenderUpdateTypeModel model);
+        Result UpdateEvent(PostUserCalenderUpdateTypeModel model, int? userId = null);
 
-        Result DeleteEvent(int id);
+        Result DeleteEvent(int id, int? userId = null);
     }
 }

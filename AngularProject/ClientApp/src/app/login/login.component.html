@@ -1,0 +1,31 @@
+<h1>Lütfen Girin Yapın !</h1>
+<form [formGroup]="loginUserForm" (ngSubmit)="login()">
+  <input type="text" class="form-control" placeholder="Email Adresinizi Girin" id="EMail" name="EMail" formControlName="EMail" autofocus />
+  <span *ngIf="loginUserForm.get('EMail').hasError('required') && loginUserForm.get('EMail').touched">
+    Lütfen Mail Adresinizi Girin
+  </span>
+  <br />
+  <input type="password" class="form-control" placeholder="Şifrenizi Girin" id="Password" name="Password" formControlName="Password" />
+  <span *ngIf="loginUserForm.get('Password').hasError('required') && loginUserForm.get('Password').touched">
+    Lütfen Şifrenizi Girin
+  </span>
+  <br />
+  <button type="submit" class="btn btn-success" [disabled]="!loginUserForm.valid" style="width: 100%"> Giriş Yap </button>
+</form>
+
+<h1>veya Kayıt Olun!</h1>
+
+<form [formGroup]="loginUserForm" (ngSubmit)="register()">
+  <input type="text" class="form-control" placeholder="Email Adresinizi Girin" id="EMail" name="EMail" formControlName="EMail" autofocus />
+  <span *ngIf="loginUserForm.get('EMail').hasError('required') && loginUserForm.get('EMail').touched">
+    Lütfen Mail Adresinizi Girin
+  </span>
+  <br />
+  <input type="password" class="form-control" placeholder="Şifrenizi Girin" id="Password" name="Password" formControlName="Password" />
+  <span *ngIf="loginUserForm.get('Password').hasError('required') && loginUserForm.get('Password').touched">
+    Lütfen Şifrenizi Girin
+  </span>
+  <br />
+  <button type="submit" class="btn btn-success" [disabled]="!loginUserForm.valid" style="width: 100%"> Kayıt Ol </button>
+
+</form>

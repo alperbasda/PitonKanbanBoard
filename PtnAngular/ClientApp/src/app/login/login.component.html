@@ -1,0 +1,14 @@
+<h1 style="margin:auto auto">Lütfen Girin Yapın !</h1>
+<form [FormGroup]="loginUserForm" (ngSubmit)="login()">
+  <input type="text" class="form-control" placeholder="Email Adresinizi Girin" formControlName="EMail" autofocus />
+  <span *ngIf="loginUserForm.get('EMail').hasError('required') && loginUserForm.get('EMail').touched">
+    Lütfen Mail Adresinizi Girin
+  </span>
+  <br />
+  <input type="password" class="form-control" placeholder="Şifrenizi Girin" formControlName="Password" />
+  <span *ngIf="loginUserForm.get('Password').hasError('required') && loginUserForm.get('Password').touched">
+    Lütfen Şifrenizi Girin
+  </span>
+  <br />
+  <button type="submit" class="btn btn-success" [disabled]="!loginUserForm.valid" style="width: 100%"> Giriş Yap </button>
+</form>

@@ -24,11 +24,12 @@ namespace Business.Concrete
             _mapper = mapper;
         }
 
-        [SecuredOperation]
+
         [ExceptionLogAspect(typeof(DatabaseLogger))]
-        public Result UserEvents()
+
+        public Result UserEvents(int? userId = null)
         {
-            var id = AuthenticateHelper.AuthenticateUserId();
+            var id = userId ?? AuthenticateHelper.AuthenticateUserId();
 
             return new Result
             {
@@ -38,15 +39,16 @@ namespace Business.Concrete
             };
         }
 
-        [SecuredOperation]
-        [ExceptionLogAspect(typeof(DatabaseLogger))]
-        public Result CreateEvent(PostUserCalenderModel model)
-        {
-            var userId = AuthenticateHelper.AuthenticateUserId();
-            var entity = _mapper.Map<UserCalender>(model);
-            entity.UserId = userId;
 
-            var turnData= _calenderDal.Add(entity);
+        [ExceptionLogAspect(typeof(DatabaseLogger))]
+
+        public Result CreateEvent(PostUserCalenderModel model, int? userId = null)
+        {
+            userId = userId ?? AuthenticateHelper.AuthenticateUserId();
+            var entity = _mapper.Map<UserCalender>(model);
+            entity.UserId = (int)userId;
+
+            var turnData = _calenderDal.Add(entity);
             return new Result
             {
                 Success = true,
@@ -55,9 +57,10 @@ namespace Business.Concrete
             };
         }
 
-        [SecuredOperation]
+
         [ExceptionLogAspect(typeof(DatabaseLogger))]
-        public Result UpdateEvent(PostUserCalenderUpdateTypeModel model)
+
+        public Result UpdateEvent(PostUserCalenderUpdateTypeModel model, int? userId = null)
         {
             var entity = _calenderDal.Get(s => s.Id == model.Id);
             if (entity == null)
@@ -67,7 +70,7 @@ namespace Business.Concrete
                     Success = false
                 };
 
-            var userId = AuthenticateHelper.AuthenticateUserId();
+            userId = userId ?? AuthenticateHelper.AuthenticateUserId();
             if (entity.UserId != userId)
                 return new Result
                 {
@@ -85,20 +88,21 @@ namespace Business.Concrete
             };
         }
 
-        [SecuredOperation]
+
         [ExceptionLogAspect(typeof(DatabaseLogger))]
-        public Result DeleteEvent(int id)
+
+        public Result DeleteEvent(int id, int? userId = null)
         {
             var entity = _calenderDal.Get(s => s.Id == id);
-            if(entity== null)
+            if (entity == null)
                 return new Result
                 {
                     Message = "Veri Bulunamadı",
                     Success = false
                 };
 
-            var userId = AuthenticateHelper.AuthenticateUserId();
-            if(entity.UserId != userId)
+            userId = userId ?? AuthenticateHelper.AuthenticateUserId();
+            if (entity.UserId != userId)
                 return new Result
                 {
                     Message = "Bu Veriyi Silme Yetkiniz Yok",

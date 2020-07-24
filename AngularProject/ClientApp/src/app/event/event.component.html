@@ -1,0 +1,51 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <h2>Bugun</h2>
+      <ul>
+        <li *ngFor="let item of toDayEvents">
+          {{item.description}}
+          <a (click)="delete(item)" style="color:red"> Sil </a>
+        </li>
+      </ul>
+
+    </div>
+    <div class="col-4">
+      <h2>Bu Hafta</h2>
+      <ul>
+        <li *ngFor="let item of toWeekEvents">
+          {{item.description}} {{item.recordType}}
+          <a (click)="delete(item)" style="color:red"> Sil </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-4">
+      <h2>Bu Ay</h2>
+      <ul>
+        <li *ngFor="let item of toMonthEvents">
+          {{item.description}} {{item.recordType}}
+          <a (click)="delete(item)" style="color:red"> Sil </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+<br />
+
+<form [formGroup]="postEventForm" (ngSubmit)="insertData()">
+  <input type="text" class="form-control" placeholder="Yeni Açıklama Girin" id="Description" name="Description" formControlName="Description" autofocus />
+  <br />
+  <select class="form-control" id="RecordType" name="RecordType" formControlName="RecordType">
+    <option value="0" selected="selected"> Günlük </option>
+    <option value="1"> Haftalık </option>
+    <option value="2"> Aylık </option>
+  </select>
+
+  <br />
+  <button type="submit" class="btn btn-success" style="width: 100%"> Kaydet </button>
+</form>
